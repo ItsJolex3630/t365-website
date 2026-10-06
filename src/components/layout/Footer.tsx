@@ -51,8 +51,8 @@ export const Footer: React.FC = () => {
               Equipamiento balístico, óptico y defensivo de estándar militar. Abastecimiento profesional 365 días al año.
             </p>
             <div className="font-mono text-[11px] text-[#A3A3A3] space-y-1">
-              <div>SANTIAGO, CHILE</div>
-              <div className="text-[#76B900]">COBERTURA LATAM DISPATCH</div>
+              <div>ESTADOS UNIDOS</div>
+              <div className="text-[#76B900]">COBERTURA USA & GLOBAL DISPATCH</div>
             </div>
           </div>
 

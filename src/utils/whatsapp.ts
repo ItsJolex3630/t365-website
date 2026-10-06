@@ -19,12 +19,12 @@ export function generateWhatsAppQuoteUrl(
   details: QuoteDetails = {}
 ): string {
   const now = new Date();
-  const dateStr = now.toLocaleDateString('es-CL', {
+  const dateStr = now.toLocaleDateString('es-US', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
   });
-  const timeStr = now.toLocaleTimeString('es-CL', {
+  const timeStr = now.toLocaleTimeString('es-US', {
     hour: '2-digit',
     minute: '2-digit',
   });

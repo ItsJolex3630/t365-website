@@ -80,7 +80,7 @@ export const HeroSection: React.FC = () => {
                 <div className="text-[#5A5A5A] uppercase">Despacho</div>
                 <div className="text-white font-bold flex items-center gap-1.5">
                   <Truck className="w-3.5 h-3.5 text-[#76B900]" />
-                  <span>24/48H Chile & LATAM</span>
+                  <span>24/48H Estados Unidos & Global</span>
                 </div>
               </div>
             </div>

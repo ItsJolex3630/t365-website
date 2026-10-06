@@ -83,7 +83,7 @@ export const Header: React.FC = () => {
         <div className="md:hidden bg-[#0A0A0A] border-b border-[#242424] px-6 py-4 space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-[#242424] text-xs font-mono text-[#A3A3A3]">
             <span className="text-[#76B900]">ESTADO: EN LÍNEA</span>
-            <span>CHILE & LATAM</span>
+            <span>ESTADOS UNIDOS</span>
           </div>
           <a
             href="#catalogo"
