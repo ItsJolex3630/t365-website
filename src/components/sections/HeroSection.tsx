@@ -10,10 +10,10 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative overflow-hidden pt-12 pb-20 border-b border-[#242424] hud-grid-bg">
       {/* Decorative HUD Corner Crosshairs */}
-      <div className="absolute top-6 left-6 text-[#242424] font-mono text-xs select-none pointer-events-none hidden md:block">
+      <div className="absolute top-6 left-6 text-[#3B4D21] font-mono text-xs select-none pointer-events-none hidden md:block">
         + LOC: 33°27'S 70°40'W // GRID-365
       </div>
-      <div className="absolute top-6 right-6 text-[#242424] font-mono text-xs select-none pointer-events-none hidden md:block">
+      <div className="absolute top-6 right-6 text-[#3B4D21] font-mono text-xs select-none pointer-events-none hidden md:block">
         [SYS-STATUS: READY] +
       </div>
 
@@ -29,7 +29,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Main Headline */}
             <div className="space-y-2">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight uppercase">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight uppercase">
                 Equipamiento Táctico <br />
                 <span className="text-[#76B900] drop-shadow-[0_0_20px_rgba(118,185,0,0.35)]">
                   Profesional & Defensa
@@ -67,7 +67,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Quick Micro-Specs Bar */}
-            <div className="pt-6 grid grid-cols-3 gap-4 border-t border-[#242424] text-xs font-mono">
+            <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 border-t border-[#242424] text-xs font-mono">
               <div className="space-y-1">
                 <div className="text-[#5A5A5A] uppercase">Disponibilidad</div>
                 <div className="text-white font-bold flex items-center gap-1.5">

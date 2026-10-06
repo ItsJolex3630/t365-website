@@ -44,7 +44,7 @@ export const MissionFinder: React.FC = () => {
               <button
                 key={m.id}
                 onClick={() => setSelectedMissionId(m.id)}
-                className={`p-5 text-left border transition-all relative ${
+                className={`p-5 min-h-[44px] text-left border transition-all relative ${
                   isActive
                     ? 'bg-[#1A1A1A] border-[#76B900] shadow-[0_0_20px_rgba(118,185,0,0.25)]'
                     : 'bg-[#121212] border-[#242424] hover:border-[#76B900]/60 text-[#A3A3A3]'
@@ -120,7 +120,7 @@ export const MissionFinder: React.FC = () => {
 
                 <button
                   onClick={() => addMissionBundle(currentMission)}
-                  className="w-full py-4 px-6 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-black text-sm uppercase tracking-wider tactical-chamfer flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(118,185,0,0.35)] transition-all hover:shadow-[0_0_28px_rgba(118,185,0,0.55)]"
+                  className="w-full py-3.5 sm:py-4 px-4 sm:px-6 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-black text-xs sm:text-sm uppercase tracking-wider tactical-chamfer flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(118,185,0,0.35)] transition-all hover:shadow-[0_0_28px_rgba(118,185,0,0.55)]"
                 >
                   <ShoppingCart className="w-4 h-4" />
                   <span>Cotizar Kit de Misión Completo</span>
@@ -142,7 +142,7 @@ export const MissionFinder: React.FC = () => {
                     onClick={() => setSelectedProductModal(p)}
                     className="p-3 bg-[#1A1A1A] border border-[#242424] hover:border-[#76B900] transition-colors flex items-center gap-3 group cursor-pointer"
                   >
-                    <div className="w-16 h-16 bg-[#0A0A0A] border border-[#242424] shrink-0 overflow-hidden">
+                    <div className="w-16 h-16 shrink-0 bg-[#0A0A0A] border border-[#242424] overflow-hidden">
                       <img
                         src={p.image}
                         alt={p.name}

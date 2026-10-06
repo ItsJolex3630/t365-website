@@ -47,7 +47,7 @@ export const CatalogSection: React.FC = () => {
           </div>
 
           {/* Quick Search */}
-          <div className="w-full md:w-80 relative">
+          <div className="w-full md:w-96 relative">
             <Search className="w-4 h-4 text-[#A3A3A3] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -60,21 +60,25 @@ export const CatalogSection: React.FC = () => {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-[#242424]">
-          <Filter className="w-4 h-4 text-[#76B900] mr-2 shrink-0 hidden sm:block" />
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 text-xs font-mono tracking-wider uppercase transition-all shrink-0 ${
-                selectedCategory === cat
-                  ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_12px_rgba(118,185,0,0.3)]'
-                  : 'bg-[#121212] text-[#A3A3A3] hover:text-white border border-[#242424] hover:border-[#76B900]'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="relative">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-[#242424]">
+            <Filter className="w-4 h-4 text-[#76B900] mr-2 shrink-0 hidden sm:block" />
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2.5 min-h-[44px] flex items-center text-xs font-mono tracking-wider uppercase transition-all shrink-0 ${
+                  selectedCategory === cat
+                    ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_12px_rgba(118,185,0,0.3)]'
+                    : 'bg-[#121212] text-[#A3A3A3] hover:text-white border border-[#242424] hover:border-[#76B900]'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          {/* Máscara de desvanecimiento derecha en móvil */}
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#0A0A0A] to-transparent pointer-events-none md:hidden" />
         </div>
 
         {/* Product Cards Grid */}

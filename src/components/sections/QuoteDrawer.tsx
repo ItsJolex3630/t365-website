@@ -38,10 +38,10 @@ export const QuoteDrawer: React.FC = () => {
         className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#0E0E0E] border-l border-[#242424] text-white flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.9)]">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-full sm:w-[420px] max-w-md bg-[#0E0E0E] border-l border-[#242424] text-white flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.9)]">
           {/* Header */}
-          <div className="p-5 bg-[#121212] border-b border-[#242424] flex items-center justify-between">
+          <div className="p-4 sm:p-5 bg-[#121212] border-b border-[#242424] flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm text-[#76B900] font-bold">
                 ESTACIÓN DE COTIZACIÓN
@@ -53,7 +53,7 @@ export const QuoteDrawer: React.FC = () => {
 
             <button
               onClick={() => setIsDrawerOpen(false)}
-              className="p-1.5 text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors"
               aria-label="Cerrar cotizador"
             >
               <X className="w-5 h-5" />
@@ -61,7 +61,7 @@ export const QuoteDrawer: React.FC = () => {
           </div>
 
           {/* Body / Items List */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
             {items.length === 0 ? (
               <div className="text-center py-16 space-y-3">
                 <div className="w-12 h-12 bg-[#121212] border border-[#242424] mx-auto flex items-center justify-center text-[#76B900]">
@@ -95,7 +95,7 @@ export const QuoteDrawer: React.FC = () => {
                       <div className="text-[10px] font-mono text-[#76B900] truncate">
                         {item.product.sku}
                       </div>
-                      <div className="text-xs font-bold text-white truncate uppercase">
+                      <div className="text-xs font-bold text-white uppercase line-clamp-2">
                         {item.product.name}
                       </div>
                       <div className="text-xs font-mono text-[#A3A3A3]">
@@ -103,30 +103,32 @@ export const QuoteDrawer: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-1 bg-[#0A0A0A] border border-[#242424] p-1">
+                    {/* Quantity Controls - áreas táctiles 38px+ */}
+                    <div className="flex items-center border border-[#242424] bg-[#0A0A0A]">
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        className="p-1 hover:text-[#76B900] text-[#A3A3A3]"
+                        className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#A3A3A3] hover:text-[#76B900]"
+                        aria-label="Disminuir"
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="w-6 text-center text-xs font-mono font-bold">
+                      <span className="w-7 text-center text-xs font-mono font-bold">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        className="p-1 hover:text-[#76B900] text-[#A3A3A3]"
+                        className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#A3A3A3] hover:text-[#76B900]"
+                        aria-label="Aumentar"
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
-                    {/* Remove */}
+                    {/* Remove - área táctil 38px+ */}
                     <button
                       onClick={() => removeItem(item.product.id)}
-                      className="p-1.5 text-[#5A5A5A] hover:text-[#FF3B30] transition-colors"
-                      title="Eliminar ítem"
+                      className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#8A8A8A] hover:text-[#FF3B30] transition-colors"
+                      aria-label="Eliminar ítem"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -158,7 +160,7 @@ export const QuoteDrawer: React.FC = () => {
                     onChange={(e) =>
                       setDetails({ ...details, companyName: e.target.value })
                     }
-                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-xs font-mono p-2.5 text-white placeholder-[#5A5A5A] outline-none"
+                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-base sm:text-xs font-mono p-3 min-h-[44px] text-white placeholder-[#8A8A8A] outline-none"
                   />
 
                   <input
@@ -168,7 +170,7 @@ export const QuoteDrawer: React.FC = () => {
                     onChange={(e) =>
                       setDetails({ ...details, contactName: e.target.value })
                     }
-                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-xs font-mono p-2.5 text-white placeholder-[#5A5A5A] outline-none"
+                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-base sm:text-xs font-mono p-3 min-h-[44px] text-white placeholder-[#8A8A8A] outline-none"
                   />
 
                   <input
@@ -178,7 +180,7 @@ export const QuoteDrawer: React.FC = () => {
                     onChange={(e) =>
                       setDetails({ ...details, city: e.target.value })
                     }
-                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-xs font-mono p-2.5 text-white placeholder-[#5A5A5A] outline-none"
+                    className="w-full bg-[#141414] border border-[#242424] focus:border-[#76B900] text-base sm:text-xs font-mono p-3 min-h-[44px] text-white placeholder-[#8A8A8A] outline-none"
                   />
                 </div>
               </div>

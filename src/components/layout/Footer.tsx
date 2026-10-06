@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Directory Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs">
           {/* Brand Col */}
           <div className="space-y-4">
             <div className="flex items-baseline gap-2">

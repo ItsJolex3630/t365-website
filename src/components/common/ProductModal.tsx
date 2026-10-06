@@ -18,9 +18,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-3xl bg-[#121212] border border-[#242424] tactical-chamfer shadow-[0_20px_50px_rgba(0,0,0,0.9)] max-h-[90vh] overflow-y-auto">
-        {/* Header Bar */}
-        <div className="flex items-center justify-between p-4 bg-[#1A1A1A] border-b border-[#242424]">
+      <div className="relative w-full max-w-3xl bg-[#121212] border border-[#242424] shadow-[0_20px_50px_rgba(0,0,0,0.9)] max-h-[90vh] overflow-y-auto">
+        {/* Header Bar - sticky para mantener botón de cierre visible */}
+        <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-[#141414] border-b border-[#242424]">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs text-[#76B900] tracking-wider">
               {product.sku}
@@ -33,7 +33,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
 
           <button
             onClick={onClose}
-            className="p-1.5 text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors"
             aria-label="Cerrar modal"
           >
             <X className="w-5 h-5" />
@@ -42,8 +42,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
 
         {/* Content Body */}
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          {/* Image */}
-          <div className="bg-[#0A0A0A] border border-[#242424] p-3 aspect-square flex items-center justify-center relative overflow-hidden group">
+          {/* Image - altura ajustada en móvil para mantener botones visibles */}
+          <div className="bg-[#0A0A0A] border border-[#242424] p-3 h-52 sm:h-64 md:h-full max-h-80 flex items-center justify-center relative overflow-hidden group">
             <img
               src={product.image}
               alt={product.name}
