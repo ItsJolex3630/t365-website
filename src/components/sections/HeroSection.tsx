@@ -1,11 +1,13 @@
 import React from 'react';
 import { ArrowRight, Crosshair, ShieldCheck, Truck, CheckCircle2 } from 'lucide-react';
 import { useQuote } from '../../context/QuoteContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { generateWhatsAppQuoteUrl } from '../../utils/whatsapp';
 
 export const HeroSection: React.FC = () => {
   const { items } = useQuote();
-  const directWhatsAppUrl = generateWhatsAppQuoteUrl(items);
+  const { language, t } = useLanguage();
+  const directWhatsAppUrl = generateWhatsAppQuoteUrl(items, {}, language);
 
   return (
     <section className="relative overflow-hidden pt-12 pb-20 border-b border-[#242424] hud-grid-bg">
@@ -16,25 +18,25 @@ export const HeroSection: React.FC = () => {
             {/* Tactical Pill Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#121212] border border-[#76B900]/40 text-[#76B900] text-xs font-mono tracking-wider shadow-[0_0_12px_rgba(118,185,0,0.15)]">
               <span className="w-2 h-2 bg-[#76B900] inline-block animate-ping"></span>
-              <span>[ MIL-SPEC DEFENSE PROTOCOL // LATAM DISPATCH ]</span>
+              <span>{t.hero.protocolBadge}</span>
             </div>
 
             {/* Main Headline */}
             <div className="space-y-2">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight uppercase">
-                Equipamiento Táctico <br />
+                {t.hero.titleLine1} <br />
                 <span className="text-[#76B900] drop-shadow-[0_0_20px_rgba(118,185,0,0.35)]">
-                  Profesional & Defensa
+                  {t.hero.titleLine2}
                 </span>
               </h1>
               <p className="font-mono text-sm sm:text-base text-[#76B900] tracking-widest uppercase font-semibold">
-                Built for what's next. Tactical. 365 days a year.
+                {t.hero.tagline}
               </p>
             </div>
 
             {/* Subtitle / Description */}
             <p className="text-base sm:text-lg text-[#A3A3A3] max-w-2xl leading-relaxed">
-              Suministros balísticos de estándar militar, chalecos porta-placas modulares, cascos FAST Kevlar, linternas de asalto y dispositivos de retención de alta resistencia para fuerzas de seguridad, custodia armada y operadores tácticos en terreno.
+              {t.hero.description}
             </p>
 
             {/* CTA Buttons */}
@@ -43,7 +45,7 @@ export const HeroSection: React.FC = () => {
                 href="#catalogo"
                 className="px-8 py-4 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-black text-sm tracking-widest uppercase tactical-chamfer flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(118,185,0,0.4)] transition-all hover:shadow-[0_0_30px_rgba(118,185,0,0.6)]"
               >
-                <span>Explorar Catálogo</span>
+                <span>{t.hero.exploreBtn}</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
@@ -54,33 +56,33 @@ export const HeroSection: React.FC = () => {
                 className="px-8 py-4 bg-[#121212] hover:bg-[#1A1A1A] border border-[#242424] hover:border-[#76B900] text-white hover:text-[#76B900] font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition-all font-mono"
               >
                 <Crosshair className="w-4 h-4 text-[#76B900]" />
-                <span>Consultar Especialista</span>
+                <span>{t.hero.consultBtn}</span>
               </a>
             </div>
 
             {/* Quick Micro-Specs Bar */}
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 border-t border-[#242424] text-xs font-mono">
               <div className="space-y-1">
-                <div className="text-[#5A5A5A] uppercase">Disponibilidad</div>
+                <div className="text-[#5A5A5A] uppercase">{t.hero.availabilityLabel}</div>
                 <div className="text-white font-bold flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#76B900]" />
-                  <span>100% Stock Inmediato</span>
+                  <span>{t.hero.availabilityValue}</span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <div className="text-[#5A5A5A] uppercase">Blindaje</div>
+                <div className="text-[#5A5A5A] uppercase">{t.hero.armorLabel}</div>
                 <div className="text-white font-bold flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#76B900]" />
-                  <span>NIJ 0101.06 Compliant</span>
+                  <span>{t.hero.armorValue}</span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <div className="text-[#5A5A5A] uppercase">Despacho</div>
+                <div className="text-[#5A5A5A] uppercase">{t.hero.dispatchLabel}</div>
                 <div className="text-white font-bold flex items-center gap-1.5">
                   <Truck className="w-3.5 h-3.5 text-[#76B900]" />
-                  <span>24/48H Estados Unidos & Global</span>
+                  <span>{t.hero.dispatchValue}</span>
                 </div>
               </div>
             </div>

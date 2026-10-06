@@ -1,5 +1,6 @@
 import React from 'react';
 import { QuoteProvider, useQuote } from './context/QuoteContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { HeroSection } from './components/sections/HeroSection';
@@ -92,9 +93,11 @@ const MainContent: React.FC = () => {
 
 export function App() {
   return (
-    <QuoteProvider>
-      <MainContent />
-    </QuoteProvider>
+    <LanguageProvider>
+      <QuoteProvider>
+        <MainContent />
+      </QuoteProvider>
+    </LanguageProvider>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, ShoppingCart, Eye } from 'lucide-react';
 import { PRODUCTS } from '../../data/products';
 import { useQuote } from '../../context/QuoteContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 const CATEGORIES = [
   'Todos',
@@ -16,18 +17,21 @@ export const CatalogSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const { addItem, setSelectedProductModal } = useQuote();
+  const { language, t } = useLanguage();
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((p) => {
       const matchesCategory =
         selectedCategory === 'Todos' || p.category === selectedCategory;
+      const name = p.name[language];
+      const description = p.description[language];
       const matchesSearch =
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.description.toLowerCase().includes(searchQuery.toLowerCase());
+        description.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, language]);
 
   return (
     <section id="catalogo" className="py-20 border-b border-[#242424] bg-[#0A0A0A]">
@@ -36,13 +40,13 @@ export const CatalogSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121212] border border-[#242424] text-[#76B900] text-xs font-mono tracking-wider">
-              <span>CATÁLOGO OPERATIVO // T.365 DEFENSE SYSTEMS</span>
+              <span>{t.catalog.badge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-              Equipamiento & Línea Táctica Oficial
+              {t.catalog.title}
             </h2>
             <p className="text-sm text-[#A3A3A3] max-w-xl">
-              Seleccione el equipamiento requerido para su unidad o empresa de seguridad. Cotice unidades individuales o lotes por volumen con entrega inmediata.
+              {t.catalog.subtitle}
             </p>
           </div>
 
@@ -51,7 +55,7 @@ export const CatalogSection: React.FC = () => {
             <Search className="w-4 h-4 text-[#A3A3A3] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Buscar por SKU o producto..."
+              placeholder={t.catalog.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#121212] border border-[#242424] focus:border-[#76B900] text-white pl-9 pr-4 py-2.5 text-xs font-mono tracking-wider placeholder-[#5A5A5A] outline-none transition-colors"
@@ -73,7 +77,7 @@ export const CatalogSection: React.FC = () => {
                     : 'bg-[#121212] text-[#A3A3A3] hover:text-white border border-[#242424] hover:border-[#76B900]'
                 }`}
               >
-                {cat}
+                {t.catalog.categories[cat] || cat}
               </button>
             ))}
           </div>
@@ -96,7 +100,7 @@ export const CatalogSection: React.FC = () => {
                 {/* SKU Badge & Category */}
                 <div className="flex items-center justify-between pb-2 sm:pb-3 border-b border-[#242424] text-[9px] sm:text-[11px] font-mono">
                   <span className="text-[#76B900] font-bold truncate">{product.sku}</span>
-                  <span className="text-[#8A8A8A] uppercase truncate ml-1">{product.category}</span>
+                  <span className="text-[#8A8A8A] uppercase truncate ml-1">{t.catalog.categories[product.category] || product.category}</span>
                 </div>
 
                 {/* Product Image Container */}
@@ -106,14 +110,14 @@ export const CatalogSection: React.FC = () => {
                 >
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={product.name[language]}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="px-3 py-1.5 bg-[#0A0A0A]/90 border border-[#76B900] text-[#76B900] font-mono text-[11px] flex items-center gap-1.5">
                       <Eye className="w-3.5 h-3.5" />
-                      VER DETALLES
+                      {t.catalog.viewDetails}
                     </span>
                   </div>
                 </div>
@@ -124,12 +128,12 @@ export const CatalogSection: React.FC = () => {
                     onClick={() => setSelectedProductModal(product)}
                     className="font-extrabold text-xs sm:text-sm text-white group-hover:text-[#76B900] transition-colors cursor-pointer line-clamp-2 uppercase min-h-[2rem] sm:min-h-0"
                   >
-                    {product.name}
+                    {product.name[language]}
                   </h3>
                   {/* Cotización Mayorista badge instead of price */}
                   <div className="text-[10px] sm:text-[11px] font-mono text-[#76B900] flex items-center gap-1">
                     <span className="w-1.5 h-1.5 bg-[#76B900] inline-block animate-pulse"></span>
-                    <span>Cotización Mayorista</span>
+                    <span>{t.catalog.wholesaleBadge}</span>
                   </div>
                 </div>
 
@@ -137,8 +141,8 @@ export const CatalogSection: React.FC = () => {
                 <div className="hidden sm:block mt-3 pt-3 border-t border-[#242424] space-y-1">
                   {product.specs.slice(0, 2).map((s, idx) => (
                     <div key={idx} className="text-[11px] font-mono text-[#A3A3A3] flex justify-between">
-                      <span className="text-[#8A8A8A]">{s.label}:</span>
-                      <span className="text-white truncate ml-2">{s.value}</span>
+                      <span className="text-[#8A8A8A]">{s.label[language]}:</span>
+                      <span className="text-white truncate ml-2">{s.value[language]}</span>
                     </div>
                   ))}
                 </div>
@@ -151,7 +155,7 @@ export const CatalogSection: React.FC = () => {
                   className="hidden sm:flex py-2 px-2 bg-[#1A1A1A] hover:bg-[#242424] text-[#A3A3A3] hover:text-white border border-[#242424] text-[11px] font-mono items-center justify-center gap-1.5 transition-colors"
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>Ficha</span>
+                  <span>{t.catalog.specsBtn}</span>
                 </button>
 
                 <button
@@ -159,7 +163,7 @@ export const CatalogSection: React.FC = () => {
                   className="py-2 px-2 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-[11px] font-mono tracking-wider uppercase tactical-chamfer-sm flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(118,185,0,0.25)] transition-all"
                 >
                   <ShoppingCart className="w-3.5 h-3.5" />
-                  <span>Cotizar</span>
+                  <span>{t.catalog.quoteBtn}</span>
                 </button>
               </div>
             </div>
@@ -169,10 +173,10 @@ export const CatalogSection: React.FC = () => {
         {filteredProducts.length === 0 && (
           <div className="text-center py-16 bg-[#121212] border border-[#242424] p-8 space-y-3">
             <p className="text-sm font-mono text-[#76B900]">
-              [ 0 RESULTADOS ENCONTRADOS ]
+              {t.catalog.noResultsTitle}
             </p>
             <p className="text-xs text-[#A3A3A3]">
-              No existen productos que coincidan con los criterios de búsqueda. Intente con otra categoría o SKU.
+              {t.catalog.noResultsDesc}
             </p>
             <button
               onClick={() => {
@@ -181,7 +185,7 @@ export const CatalogSection: React.FC = () => {
               }}
               className="mt-2 px-4 py-2 bg-[#76B900] text-[#0A0A0A] font-bold text-xs uppercase"
             >
-              Restablecer Filtros
+              {t.catalog.resetFiltersBtn}
             </button>
           </div>
         )}

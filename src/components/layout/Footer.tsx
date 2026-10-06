@@ -1,9 +1,11 @@
 import React from 'react';
 import { Phone, Mail, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 import { generateWhatsAppQuoteUrl } from '../../utils/whatsapp';
 
 export const Footer: React.FC = () => {
-  const directWhatsAppUrl = generateWhatsAppQuoteUrl([]);
+  const { language, t } = useLanguage();
+  const directWhatsAppUrl = generateWhatsAppQuoteUrl([], {}, language);
 
   return (
     <footer id="contacto" className="bg-[#0A0A0A] border-t border-[#242424] pt-16 pb-12">
@@ -13,13 +15,13 @@ export const Footer: React.FC = () => {
           <div className="space-y-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-[#76B900]">
               <span className="w-2 h-2 bg-[#76B900] rounded-none animate-pulse"></span>
-              <span>CANAL DE ATENCIÓN DIRECTA // INSTITUCIONAL & MAYORISTA</span>
+              <span>{t.footer.hotlineBadge}</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase">
-              ¿Requiere Asesoría Técnica para su Unidad?
+              {t.footer.hotlineTitle}
             </h3>
             <p className="text-xs text-[#A3A3A3] max-w-xl">
-              Nuestros especialistas en equipamiento balístico y defensa configuran paquetes a la medida de los requerimientos de su institución.
+              {t.footer.hotlineDesc}
             </p>
           </div>
 
@@ -30,7 +32,7 @@ export const Footer: React.FC = () => {
             className="px-6 py-3.5 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-xs font-mono tracking-wider uppercase tactical-chamfer flex items-center gap-2 shadow-[0_0_15px_rgba(118,185,0,0.3)] shrink-0 transition-all hover:shadow-[0_0_25px_rgba(118,185,0,0.5)]"
           >
             <Phone className="w-4 h-4" />
-            <span>Hablar con un Asesor (+58 414-9428999)</span>
+            <span>{t.footer.hotlineBtn}</span>
           </a>
         </div>
 
@@ -48,60 +50,50 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-[#7A7A7A] leading-relaxed">
-              Equipamiento balístico, óptico y defensivo de estándar militar. Abastecimiento profesional 365 días al año.
+              {t.footer.companyDesc}
             </p>
             <div className="font-mono text-[11px] text-[#A3A3A3] space-y-1">
-              <div>ESTADOS UNIDOS</div>
-              <div className="text-[#76B900]">COBERTURA USA & GLOBAL DISPATCH</div>
+              <div>{t.footer.coverageText.split(' & ')[0]}</div>
+              <div className="text-[#76B900]">{t.footer.coverageText.split(' & ')[1]}</div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-3 font-mono">
             <div className="text-[#76B900] font-bold uppercase tracking-wider text-xs">
-              Líneas de Equipamiento
+              {t.footer.linesTitle}
             </div>
             <ul className="space-y-2 text-[#A3A3A3]">
-              <li><a href="#catalogo" className="hover:text-white transition-colors">Chalecos Porta-Placas Cordura</a></li>
-              <li><a href="#catalogo" className="hover:text-white transition-colors">Cascos Balísticos FAST Aramid</a></li>
-              <li><a href="#catalogo" className="hover:text-white transition-colors">Linternas Tácticas de Asalto</a></li>
-              <li><a href="#catalogo" className="hover:text-white transition-colors">Cámaras Corporales 4K IR</a></li>
-              <li><a href="#catalogo" className="hover:text-white transition-colors">Grilletes de Bisagra de Acero</a></li>
+              <li><a href="#catalogo" className="hover:text-white transition-colors">{t.catalog.categories['Chalecos']}</a></li>
+              <li><a href="#catalogo" className="hover:text-white transition-colors">{t.catalog.categories['Cascos']}</a></li>
+              <li><a href="#catalogo" className="hover:text-white transition-colors">{t.catalog.categories['Linternas']}</a></li>
+              <li><a href="#catalogo" className="hover:text-white transition-colors">{t.catalog.categories['Bodycams']}</a></li>
+              <li><a href="#catalogo" className="hover:text-white transition-colors">{t.catalog.categories['Retención & Defensa']}</a></li>
             </ul>
           </div>
 
           {/* Standards & Compliance */}
           <div className="space-y-3 font-mono">
             <div className="text-[#76B900] font-bold uppercase tracking-wider text-xs">
-              Estándares & Normativas
+              {t.footer.standardsTitle}
             </div>
             <ul className="space-y-2 text-[#A3A3A3]">
-              <li className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-[#76B900]" />
-                <span>NIJ Standard 0101.06 (III-A)</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-[#76B900]" />
-                <span>STANAG 2920 Ballistic</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-[#76B900]" />
-                <span>ISO 9001:2015 Management</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-[#76B900]" />
-                <span>Mil-Spec Cordura 1000D</span>
-              </li>
+              {t.standards.cards.map((card, idx) => (
+                <li key={idx} className="flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-[#76B900]" />
+                  <span>{card.title}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Procurement & Contact */}
           <div className="space-y-3 font-mono">
             <div className="text-[#76B900] font-bold uppercase tracking-wider text-xs">
-              Compras Institucionales
+              {t.footer.procurementTitle}
             </div>
             <p className="text-[#7A7A7A] leading-relaxed">
-              Atendemos órdenes de compra del sector público, corporativo y licitaciones de seguridad privada.
+              {t.footer.procurementDesc}
             </p>
             <div className="pt-1 space-y-1 text-[#A3A3A3]">
               <div className="flex items-center gap-2">
@@ -119,12 +111,12 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#242424] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#5A5A5A]">
           <div>
-            © 2025 T.365 PROSAFE SUPPLY. MIL-SPEC CERTIFIED DEFENSE SYSTEMS.
+            {t.footer.rightsReserved}
           </div>
           <div className="flex gap-4">
-            <span>TERMINOS DE SERVICIO</span>
-            <span>POLÍTICA DE PRIVACIDAD</span>
-            <span>DESPACHO SEGURO</span>
+            <span>{t.footer.terms}</span>
+            <span>{t.footer.privacy}</span>
+            <span>{t.footer.secureDispatch}</span>
           </div>
         </div>
       </div>

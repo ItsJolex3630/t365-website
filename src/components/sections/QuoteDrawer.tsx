@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, MessageCircle, ArrowRight } from 'lucide-react';
 import { useQuote } from '../../context/QuoteContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { generateWhatsAppQuoteUrl } from '../../utils/whatsapp';
 import type { QuoteDetails } from '../../utils/whatsapp';
 
@@ -14,6 +15,7 @@ export const QuoteDrawer: React.FC = () => {
     setIsDrawerOpen,
     totalItemsCount,
   } = useQuote();
+  const { language, t } = useLanguage();
 
   const [details, setDetails] = useState<QuoteDetails>({
     companyName: '',
@@ -23,7 +25,9 @@ export const QuoteDrawer: React.FC = () => {
 
   if (!isDrawerOpen) return null;
 
-  const whatsappUrl = generateWhatsAppQuoteUrl(items, details);
+  const whatsappUrl = generateWhatsAppQuoteUrl(items, details, language);
+
+  const getProductName = (product: { name: { en: string; es: string } }) => product.name[language];
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden animate-in fade-in">
@@ -39,7 +43,7 @@ export const QuoteDrawer: React.FC = () => {
           <div className="p-4 sm:p-5 bg-[#121212] border-b border-[#242424] flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm text-[#76B900] font-bold">
-                ESTACIÓN DE COTIZACIÓN
+                {t.drawer.title}
               </span>
               <span className="px-2 py-0.5 bg-[#76B900] text-[#0A0A0A] font-bold text-xs">
                 {totalItemsCount}
@@ -49,7 +53,7 @@ export const QuoteDrawer: React.FC = () => {
             <button
               onClick={() => setIsDrawerOpen(false)}
               className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#A3A3A3] hover:text-white hover:bg-[#242424] transition-colors"
-              aria-label="Cerrar cotizador"
+              aria-label={language === 'en' ? 'Close quote drawer' : 'Cerrar cotizador'}
             >
               <X className="w-5 h-5" />
             </button>
@@ -63,10 +67,10 @@ export const QuoteDrawer: React.FC = () => {
                   0
                 </div>
                 <p className="font-mono text-sm text-white">
-                  No hay ítems en la cotización
+                  {t.drawer.emptyTitle}
                 </p>
                 <p className="text-xs text-[#A3A3A3]">
-                  Seleccione productos del catálogo o agregue un kit de misión completo para comenzar.
+                  {t.drawer.emptyDesc}
                 </p>
               </div>
             ) : (
@@ -80,7 +84,7 @@ export const QuoteDrawer: React.FC = () => {
                     <div className="w-14 h-14 bg-[#0A0A0A] border border-[#242424] shrink-0 overflow-hidden">
                       <img
                         src={item.product.image}
-                        alt={item.product.name}
+                        alt={getProductName(item.product)}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -91,10 +95,10 @@ export const QuoteDrawer: React.FC = () => {
                         {item.product.sku}
                       </div>
                       <div className="text-xs font-bold text-white uppercase line-clamp-2">
-                        {item.product.name}
+                        {getProductName(item.product)}
                       </div>
                       <div className="text-[11px] font-mono text-[#76B900]">
-                        Cantidad: {item.quantity} {item.quantity === 1 ? 'unidad' : 'unidades'}
+                        {t.drawer.itemUnit} / {t.drawer.itemsUnits}: {item.quantity}
                       </div>
                     </div>
 
@@ -103,7 +107,7 @@ export const QuoteDrawer: React.FC = () => {
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                         className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#A3A3A3] hover:text-[#76B900]"
-                        aria-label="Disminuir"
+                        aria-label={language === 'en' ? 'Decrease' : 'Disminuir'}
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -113,7 +117,7 @@ export const QuoteDrawer: React.FC = () => {
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                         className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#A3A3A3] hover:text-[#76B900]"
-                        aria-label="Aumentar"
+                        aria-label={language === 'en' ? 'Increase' : 'Aumentar'}
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -123,7 +127,7 @@ export const QuoteDrawer: React.FC = () => {
                     <button
                       onClick={() => removeItem(item.product.id)}
                       className="min-w-[38px] min-h-[38px] flex items-center justify-center text-[#8A8A8A] hover:text-[#FF3B30] transition-colors"
-                      aria-label="Eliminar ítem"
+                      aria-label={language === 'en' ? 'Remove item' : 'Eliminar ítem'}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -135,7 +139,7 @@ export const QuoteDrawer: React.FC = () => {
                   className="text-xs font-mono text-[#5A5A5A] hover:text-[#FF3B30] transition-colors flex items-center gap-1 pt-2"
                 >
                   <Trash2 className="w-3 h-3" />
-                  Vaciar toda la cotización
+                  {t.drawer.clearCart}
                 </button>
               </div>
             )}
@@ -144,13 +148,13 @@ export const QuoteDrawer: React.FC = () => {
             {items.length > 0 && (
               <div className="mt-6 pt-5 border-t border-[#242424] space-y-3">
                 <div className="text-xs font-mono text-[#76B900] uppercase font-bold">
-                  Datos de Contacto (Opcional):
+                  {t.drawer.contactDataLabel}
                 </div>
 
                 <div className="space-y-2">
                   <input
                     type="text"
-                    placeholder="Empresa / Institución"
+                    placeholder={t.drawer.companyPlaceholder}
                     value={details.companyName}
                     onChange={(e) =>
                       setDetails({ ...details, companyName: e.target.value })
@@ -160,7 +164,7 @@ export const QuoteDrawer: React.FC = () => {
 
                   <input
                     type="text"
-                    placeholder="Nombre del Solicitante"
+                    placeholder={t.drawer.contactNamePlaceholder}
                     value={details.contactName}
                     onChange={(e) =>
                       setDetails({ ...details, contactName: e.target.value })
@@ -170,7 +174,7 @@ export const QuoteDrawer: React.FC = () => {
 
                   <input
                     type="text"
-                    placeholder="Ciudad o Región de Despacho"
+                    placeholder={t.drawer.destinationPlaceholder}
                     value={details.city}
                     onChange={(e) =>
                       setDetails({ ...details, city: e.target.value })
@@ -186,13 +190,13 @@ export const QuoteDrawer: React.FC = () => {
           {items.length > 0 && (
             <div className="p-5 bg-[#121212] border-t border-[#242424] space-y-3">
               <div className="flex justify-between items-baseline font-mono">
-                <span className="text-xs text-[#A3A3A3]">Total de Ítems a Cotizar:</span>
+                <span className="text-xs text-[#A3A3A3]">{t.drawer.totalItemsLabel}</span>
                 <span className="text-base font-bold text-[#76B900]">
-                  {totalItemsCount} {totalItemsCount === 1 ? 'producto' : 'productos'}
+                  {totalItemsCount} {totalItemsCount === 1 ? t.drawer.itemUnit : t.drawer.itemsUnits}
                 </span>
               </div>
               <p className="text-[11px] text-[#8A8A8A] font-mono">
-                * Cotización formal emitida directamente a través del canal oficial de WhatsApp.
+                {t.drawer.footerNote}
               </p>
 
               <a
@@ -202,7 +206,7 @@ export const QuoteDrawer: React.FC = () => {
                 className="w-full py-4 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-black text-xs uppercase tracking-widest tactical-chamfer flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(118,185,0,0.35)] transition-all hover:shadow-[0_0_28px_rgba(118,185,0,0.55)]"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Enviar Cotización por WhatsApp</span>
+                <span>{t.drawer.sendWhatsappBtn}</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>

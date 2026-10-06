@@ -1,44 +1,16 @@
 import React from 'react';
 import { ShieldCheck, Layers, Lock, Flame } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const MilSpecStrip: React.FC = () => {
-  const specs = [
-    {
-      code: 'PROTOCOL // 01',
-      title: 'MIL-SPEC TESTED',
-      subtitle: 'Protocolo Balístico NIJ III-A & IV',
-      desc: 'Ensayos balísticos contra fragmentación, impactos de proyectiles de arma corta y absorción de energía cinética residual.',
-      icon: ShieldCheck,
-    },
-    {
-      code: 'MATERIAL // 02',
-      title: '1000D BALLISTIC NYLON',
-      subtitle: 'Cordura Oficial Hidrorrepelente',
-      desc: 'Tejido estructural de densidad extrema con tratamiento hidrófugo DWR y cortes láser precisos para fijación MOLLE.',
-      icon: Layers,
-    },
-    {
-      code: 'SECURITY // 03',
-      title: 'DOUBLE-LOCK MECHANISM',
-      subtitle: 'Retención y Fijación Reforzada',
-      desc: 'Sistemas de doble seguro independientes en grilletes y hebillas de desenganche táctico para máxima retención.',
-      icon: Lock,
-    },
-    {
-      code: 'LOGISTICS // 04',
-      title: 'DESPACHO INMEDIATO',
-      subtitle: 'Cobertura Institucional Express',
-      desc: 'Canal prioritario para empresas de seguridad, licitaciones y órdenes operativas con entrega en 24 a 48 horas.',
-      icon: Flame,
-    },
-  ];
+  const { t } = useLanguage();
 
   return (
     <section className="bg-[#121212] border-b border-[#242424] py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {specs.map((item, idx) => {
-            const Icon = item.icon;
+          {t.milSpec.items.map((item, idx) => {
+            const Icon = [ShieldCheck, Layers, Lock, Flame][idx];
             return (
               <div
                 key={idx}

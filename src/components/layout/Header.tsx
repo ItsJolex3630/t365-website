@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { ShoppingCart, MessageCircle, Menu, X } from 'lucide-react';
 import { useQuote } from '../../context/QuoteContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { generateWhatsAppQuoteUrl } from '../../utils/whatsapp';
 
 export const Header: React.FC = () => {
   const { totalItemsCount, setIsDrawerOpen, items } = useQuote();
+  const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const directWhatsAppUrl = generateWhatsAppQuoteUrl(items);
+  const directWhatsAppUrl = generateWhatsAppQuoteUrl(items, {}, language);
 
   return (
     <header className="sticky top-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#242424] w-full">
@@ -28,21 +30,46 @@ export const Header: React.FC = () => {
         {/* Desktop Navigation: clean and spacious */}
         <nav className="hidden xl:flex items-center gap-8 lg:gap-10 font-semibold text-sm tracking-wide text-[#A3A3A3]">
           <a href="#catalogo" className="hover:text-[#76B900] transition-colors py-1">
-            Catálogo
+            {t.nav.catalog}
           </a>
           <a href="#misiones" className="hover:text-[#76B900] transition-colors py-1">
-            Misiones
+            {t.nav.missions}
           </a>
           <a href="#especificaciones" className="hover:text-[#76B900] transition-colors py-1">
-            Estándares
+            {t.nav.standards}
           </a>
           <a href="#contacto" className="hover:text-[#76B900] transition-colors py-1">
-            Contacto
+            {t.nav.contact}
           </a>
         </nav>
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Language Switcher (Desktop) */}
+          <div className="hidden xl:flex items-center border border-[#242424] bg-[#121212] p-0.5 text-xs font-mono">
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-1 transition-all ${
+                language === 'en'
+                  ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_8px_rgba(118,185,0,0.4)]'
+                  : 'text-[#A3A3A3] hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <span className="text-[#3A3A3A] px-0.5">|</span>
+            <button
+              onClick={() => setLanguage('es')}
+              className={`px-2 py-1 transition-all ${
+                language === 'es'
+                  ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_8px_rgba(118,185,0,0.4)]'
+                  : 'text-[#A3A3A3] hover:text-white'
+              }`}
+            >
+              ES
+            </button>
+          </div>
+
           {/* Cart / Quote Drawer Button - altura táctil mínima 44px */}
           <button
             onClick={() => setIsDrawerOpen(true)}
@@ -50,7 +77,7 @@ export const Header: React.FC = () => {
             title="Ver lista de cotización"
           >
             <ShoppingCart className="w-4 h-4 text-[#76B900]" />
-            <span className="hidden sm:inline">COTIZACIÓN</span>
+            <span className="hidden sm:inline">{t.nav.quoteBtn}</span>
             <span className="px-1.5 py-0.5 bg-[#76B900] text-[#0A0A0A] font-bold text-xs">
               {totalItemsCount}
             </span>
@@ -64,7 +91,7 @@ export const Header: React.FC = () => {
             className="hidden md:inline-flex min-h-[44px] items-center gap-2 px-4 py-2.5 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-xs tracking-wider uppercase tactical-chamfer shadow-[0_0_15px_rgba(118,185,0,0.3)] transition-all"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Cotizar WhatsApp</span>
+            <span>{t.nav.whatsappBtn}</span>
           </a>
 
           {/* Mobile Menu Button - visible hasta xl, área táctil 44x44px */}
@@ -82,36 +109,62 @@ export const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#0A0A0A] border-b border-[#242424] px-6 py-4 space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-[#242424] text-xs font-mono text-[#A3A3A3]">
-            <span className="text-[#76B900]">ESTADO: EN LÍNEA</span>
-            <span>ESTADOS UNIDOS</span>
+            <span className="text-[#76B900]">{t.nav.statusBadge}</span>
+            <span>{t.nav.locationBadge}</span>
           </div>
+
+          {/* Language Switcher (Mobile) */}
+          <div className="flex items-center border border-[#242424] bg-[#121212] p-0.5 text-xs font-mono">
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-1 transition-all ${
+                language === 'en'
+                  ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_8px_rgba(118,185,0,0.4)]'
+                  : 'text-[#A3A3A3] hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <span className="text-[#3A3A3A] px-0.5">|</span>
+            <button
+              onClick={() => setLanguage('es')}
+              className={`px-2 py-1 transition-all ${
+                language === 'es'
+                  ? 'bg-[#76B900] text-[#0A0A0A] font-extrabold shadow-[0_0_8px_rgba(118,185,0,0.4)]'
+                  : 'text-[#A3A3A3] hover:text-white'
+              }`}
+            >
+              ES
+            </button>
+          </div>
+
           <a
             href="#catalogo"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            Catálogo
+            {t.nav.catalog}
           </a>
           <a
             href="#misiones"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            Misiones
+            {t.nav.missions}
           </a>
           <a
             href="#especificaciones"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            Estándares
+            {t.nav.standards}
           </a>
           <a
             href="#contacto"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            Contacto
+            {t.nav.contact}
           </a>
 
           <div className="pt-2">
@@ -122,7 +175,7 @@ export const Header: React.FC = () => {
               className="w-full flex items-center justify-center gap-2 py-3 bg-[#76B900] text-[#0A0A0A] font-bold text-xs tracking-wider uppercase tactical-chamfer"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Cotizar Directo por WhatsApp</span>
+              <span>{t.nav.whatsappBtn}</span>
             </a>
           </div>
         </div>
