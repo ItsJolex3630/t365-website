@@ -60,11 +60,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
               <h2 className="text-2xl font-black text-white uppercase leading-snug">
                 {product.name}
               </h2>
-              <div className="mt-2 text-xl font-mono font-bold text-[#76B900]">
-                ${product.priceClp.toLocaleString('es-CL')} CLP
-                <span className="text-xs font-normal text-[#A3A3A3] ml-2 font-sans">
-                  (Cotización por volumen disponible)
-                </span>
+              {/* Institutional badge instead of price */}
+              <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-[#0A0A0A] border border-[#76B900]/40 text-[#76B900] text-xs font-mono">
+                <span className="w-1.5 h-1.5 bg-[#76B900] inline-block animate-pulse"></span>
+                <span>SOLICITUD DE COTIZACIÓN INSTITUCIONAL DISPONIBLE</span>
               </div>
             </div>
 

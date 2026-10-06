@@ -82,11 +82,11 @@ export const CatalogSection: React.FC = () => {
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-[#121212] border border-[#242424] p-4 flex flex-col justify-between hud-glow-card relative group"
+              className="bg-[#121212] border border-[#242424] p-2.5 sm:p-4 flex flex-col justify-between hud-glow-card relative group"
             >
               {/* Corner crosshair accents */}
               <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#242424] group-hover:border-[#76B900] transition-colors"></div>
@@ -94,9 +94,9 @@ export const CatalogSection: React.FC = () => {
 
               <div>
                 {/* SKU Badge & Category */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#242424] text-[11px] font-mono">
-                  <span className="text-[#76B900] font-bold">{product.sku}</span>
-                  <span className="text-[#5A5A5A] uppercase">{product.category}</span>
+                <div className="flex items-center justify-between pb-2 sm:pb-3 border-b border-[#242424] text-[9px] sm:text-[11px] font-mono">
+                  <span className="text-[#76B900] font-bold truncate">{product.sku}</span>
+                  <span className="text-[#8A8A8A] uppercase truncate ml-1">{product.category}</span>
                 </div>
 
                 {/* Product Image Container */}
@@ -118,38 +118,37 @@ export const CatalogSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Title & Price */}
+                {/* Title */}
                 <div className="space-y-1">
                   <h3
                     onClick={() => setSelectedProductModal(product)}
-                    className="font-extrabold text-sm text-white group-hover:text-[#76B900] transition-colors cursor-pointer line-clamp-1 uppercase"
+                    className="font-extrabold text-xs sm:text-sm text-white group-hover:text-[#76B900] transition-colors cursor-pointer line-clamp-2 uppercase min-h-[2rem] sm:min-h-0"
                   >
                     {product.name}
                   </h3>
-                  <div className="text-sm font-mono font-bold text-[#76B900]">
-                    ${product.priceClp.toLocaleString('es-CL')} CLP
+                  {/* Cotización Mayorista badge instead of price */}
+                  <div className="text-[10px] sm:text-[11px] font-mono text-[#76B900] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 bg-[#76B900] inline-block animate-pulse"></span>
+                    <span>Cotización Mayorista</span>
                   </div>
                 </div>
 
-                {/* Key Spec Chips */}
-                <div className="mt-3 pt-3 border-t border-[#242424] space-y-1">
+                {/* Key Spec Chips - hidden on mobile */}
+                <div className="hidden sm:block mt-3 pt-3 border-t border-[#242424] space-y-1">
                   {product.specs.slice(0, 2).map((s, idx) => (
-                    <div
-                      key={idx}
-                      className="text-[11px] font-mono text-[#A3A3A3] flex justify-between"
-                    >
-                      <span className="text-[#5A5A5A]">{s.label}:</span>
+                    <div key={idx} className="text-[11px] font-mono text-[#A3A3A3] flex justify-between">
+                      <span className="text-[#8A8A8A]">{s.label}:</span>
                       <span className="text-white truncate ml-2">{s.value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="mt-4 pt-3 border-t border-[#242424] grid grid-cols-2 gap-2">
+              {/* Action Buttons - full width on mobile, dual on sm+ */}
+              <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-[#242424] grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
                 <button
                   onClick={() => setSelectedProductModal(product)}
-                  className="py-2 px-2.5 bg-[#1A1A1A] hover:bg-[#242424] text-[#A3A3A3] hover:text-white border border-[#242424] text-[11px] font-mono flex items-center justify-center gap-1.5 transition-colors"
+                  className="hidden sm:flex py-2 px-2 bg-[#1A1A1A] hover:bg-[#242424] text-[#A3A3A3] hover:text-white border border-[#242424] text-[11px] font-mono items-center justify-center gap-1.5 transition-colors"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   <span>Ficha</span>
@@ -157,7 +156,7 @@ export const CatalogSection: React.FC = () => {
 
                 <button
                   onClick={() => addItem(product, 1)}
-                  className="py-2 px-2.5 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-[11px] font-mono tracking-wider uppercase tactical-chamfer-sm flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(118,185,0,0.25)] transition-all"
+                  className="py-2 px-2 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-[11px] font-mono tracking-wider uppercase tactical-chamfer-sm flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(118,185,0,0.25)] transition-all"
                 >
                   <ShoppingCart className="w-3.5 h-3.5" />
                   <span>Cotizar</span>

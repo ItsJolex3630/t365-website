@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, MessageCircle, Menu, X, Activity } from 'lucide-react';
+import { ShoppingCart, MessageCircle, Menu, X } from 'lucide-react';
 import { useQuote } from '../../context/QuoteContext';
 import { generateWhatsAppQuoteUrl } from '../../utils/whatsapp';
 
@@ -23,45 +23,21 @@ export const Header: React.FC = () => {
               PROSAFE SUPPLY
             </span>
           </a>
-
-          {/* Operational Status Pill - solo en pantallas ultra anchas (2xl) */}
-          <div className="hidden 2xl:flex items-center gap-2 px-3 py-1 bg-[#121212] border border-[#242424] text-[11px] font-mono tracking-wider text-[#A3A3A3]">
-            <Activity className="w-3.5 h-3.5 text-[#76B900] animate-pulse" />
-            <span>SYS: OPERACIONAL</span>
-            <span className="text-[#8A8A8A]">|</span>
-            <span className="text-[#76B900]">STOCK 100%</span>
-          </div>
         </div>
 
-        {/* Desktop Navigation: visible únicamente a partir de xl (1280px) */}
-        <nav className="hidden xl:flex items-center gap-7 font-medium text-sm text-[#A3A3A3]">
-          <a
-            href="#catalogo"
-            className="hover:text-[#76B900] transition-colors flex items-center gap-1 group"
-          >
-            <span className="font-mono text-xs text-[#8A8A8A] group-hover:text-[#76B900]">01.</span>
-            Catálogo Táctico
+        {/* Desktop Navigation: clean and spacious */}
+        <nav className="hidden xl:flex items-center gap-8 lg:gap-10 font-semibold text-sm tracking-wide text-[#A3A3A3]">
+          <a href="#catalogo" className="hover:text-[#76B900] transition-colors py-1">
+            Catálogo
           </a>
-          <a
-            href="#misiones"
-            className="hover:text-[#76B900] transition-colors flex items-center gap-1 group"
-          >
-            <span className="font-mono text-xs text-[#8A8A8A] group-hover:text-[#76B900]">02.</span>
-            Configurador Misiones
+          <a href="#misiones" className="hover:text-[#76B900] transition-colors py-1">
+            Misiones
           </a>
-          <a
-            href="#especificaciones"
-            className="hover:text-[#76B900] transition-colors flex items-center gap-1 group"
-          >
-            <span className="font-mono text-xs text-[#8A8A8A] group-hover:text-[#76B900]">03.</span>
-            Estándares Balísticos
+          <a href="#especificaciones" className="hover:text-[#76B900] transition-colors py-1">
+            Estándares
           </a>
-          <a
-            href="#contacto"
-            className="hover:text-[#76B900] transition-colors flex items-center gap-1 group"
-          >
-            <span className="font-mono text-xs text-[#8A8A8A] group-hover:text-[#76B900]">04.</span>
-            Contacto B2B
+          <a href="#contacto" className="hover:text-[#76B900] transition-colors py-1">
+            Contacto
           </a>
         </nav>
 
@@ -114,28 +90,28 @@ export const Header: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            01. Catálogo Táctico
+            Catálogo
           </a>
           <a
             href="#misiones"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            02. Configurador de Misiones
+            Misiones
           </a>
           <a
             href="#especificaciones"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            03. Estándares Balísticos
+            Estándares
           </a>
           <a
             href="#contacto"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-white hover:text-[#76B900]"
           >
-            04. Contacto B2B
+            Contacto
           </a>
 
           <div className="pt-2">

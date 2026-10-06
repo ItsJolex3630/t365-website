@@ -9,14 +9,6 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden pt-12 pb-20 border-b border-[#242424] hud-grid-bg">
-      {/* Decorative HUD Corner Crosshairs */}
-      <div className="absolute top-6 left-6 text-[#3B4D21] font-mono text-xs select-none pointer-events-none hidden md:block">
-        + LOC: 33°27'S 70°40'W // GRID-365
-      </div>
-      <div className="absolute top-6 right-6 text-[#3B4D21] font-mono text-xs select-none pointer-events-none hidden md:block">
-        [SYS-STATUS: READY] +
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Hero Content */}

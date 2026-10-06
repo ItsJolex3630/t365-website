@@ -23,11 +23,6 @@ export const QuoteDrawer: React.FC = () => {
 
   if (!isDrawerOpen) return null;
 
-  const totalReferencePrice = items.reduce(
-    (acc, curr) => acc + curr.product.priceClp * curr.quantity,
-    0
-  );
-
   const whatsappUrl = generateWhatsAppQuoteUrl(items, details);
 
   return (
@@ -98,8 +93,8 @@ export const QuoteDrawer: React.FC = () => {
                       <div className="text-xs font-bold text-white uppercase line-clamp-2">
                         {item.product.name}
                       </div>
-                      <div className="text-xs font-mono text-[#A3A3A3]">
-                        ${(item.product.priceClp * item.quantity).toLocaleString('es-CL')} CLP
+                      <div className="text-[11px] font-mono text-[#76B900]">
+                        Cantidad: {item.quantity} {item.quantity === 1 ? 'unidad' : 'unidades'}
                       </div>
                     </div>
 
@@ -191,13 +186,13 @@ export const QuoteDrawer: React.FC = () => {
           {items.length > 0 && (
             <div className="p-5 bg-[#121212] border-t border-[#242424] space-y-3">
               <div className="flex justify-between items-baseline font-mono">
-                <span className="text-xs text-[#A3A3A3]">Total Referencial:</span>
-                <span className="text-xl font-bold text-[#76B900]">
-                  ${totalReferencePrice.toLocaleString('es-CL')} CLP
+                <span className="text-xs text-[#A3A3A3]">Total de Ítems a Cotizar:</span>
+                <span className="text-base font-bold text-[#76B900]">
+                  {totalItemsCount} {totalItemsCount === 1 ? 'producto' : 'productos'}
                 </span>
               </div>
-              <p className="text-[11px] text-[#5A5A5A] font-mono">
-                * Precios referenciales exentos de descuentos por lote institucional.
+              <p className="text-[11px] text-[#8A8A8A] font-mono">
+                * Cotización formal emitida directamente a través del canal oficial de WhatsApp.
               </p>
 
               <a

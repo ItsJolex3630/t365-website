@@ -14,8 +14,6 @@ export const MissionFinder: React.FC = () => {
     currentMission.recommendedProductIds.includes(p.id)
   );
 
-  const totalBundlePrice = missionProducts.reduce((acc, curr) => acc + curr.priceClp, 0);
-
   return (
     <section id="misiones" className="py-20 border-b border-[#242424] bg-[#0E0E0E] relative overflow-hidden">
       {/* Background Accent Lines */}
@@ -112,9 +110,9 @@ export const MissionFinder: React.FC = () => {
               {/* Bundle Action */}
               <div className="pt-4 border-t border-[#242424] space-y-3">
                 <div className="flex justify-between items-baseline font-mono">
-                  <span className="text-xs text-[#A3A3A3]">Valor Referencial Kit Completo:</span>
-                  <span className="text-xl font-bold text-[#76B900]">
-                    ${totalBundlePrice.toLocaleString('es-CL')} CLP
+                  <span className="text-xs text-[#A3A3A3]">Modalidad de Suministro:</span>
+                  <span className="text-xs sm:text-sm font-bold text-[#76B900]">
+                    LOTE COMPLETO POR UNIDAD
                   </span>
                 </div>
 
@@ -156,8 +154,8 @@ export const MissionFinder: React.FC = () => {
                       <div className="text-xs font-bold text-white group-hover:text-[#76B900] transition-colors truncate uppercase">
                         {p.name}
                       </div>
-                      <div className="text-[11px] font-mono text-[#A3A3A3]">
-                        ${p.priceClp.toLocaleString('es-CL')} CLP
+                      <div className="text-[10px] font-mono text-[#8A8A8A]">
+                        Incluido en Kit de Misión
                       </div>
                     </div>
                   </div>
