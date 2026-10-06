@@ -12,7 +12,7 @@ export interface QuoteDetails {
   missionName?: string;
 }
 
-export const WHATSAPP_NUMBER = '56936500000'; // Número oficial T.365
+export const WHATSAPP_NUMBER = '584149428999'; // Número oficial T.365 (+58 414-9428999)
 
 export function generateWhatsAppQuoteUrl(
   items: CartItem[],

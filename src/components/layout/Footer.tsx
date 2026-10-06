@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
             className="px-6 py-3.5 bg-[#76B900] hover:bg-[#86B335] text-[#0A0A0A] font-extrabold text-xs font-mono tracking-wider uppercase tactical-chamfer flex items-center gap-2 shadow-[0_0_15px_rgba(118,185,0,0.3)] shrink-0 transition-all hover:shadow-[0_0_25px_rgba(118,185,0,0.5)]"
           >
             <Phone className="w-4 h-4" />
-            <span>Hablar con un Asesor (+56 9 TACTICAL)</span>
+            <span>Hablar con un Asesor (+58 414-9428999)</span>
           </a>
         </div>
 
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#76B900]" />
-                <span>+56 9 3650 TACTICAL</span>
+                <span>+58 414-9428999</span>
               </div>
             </div>
           </div>
